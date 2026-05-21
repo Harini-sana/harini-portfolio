@@ -1,270 +1,1405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harini | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harini — UI/UX Designer & Frontend Developer</title>
+<meta name="description" content="Harini — UI/UX Designer and Frontend Developer crafting clean, user-centered digital experiences through thoughtful design and scalable code.">
+<meta property="og:title" content="Harini — UI/UX Designer & Frontend Developer">
+<meta property="og:description" content="Designing experiences. Building interfaces. Portfolio of Harini, a UI/UX designer and frontend developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg-card: #141414;
+    --bg-subtle: #1a1a1a;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #f0ede8;
+    --text-muted: #888880;
+    --text-dim: #555550;
+    --accent: #c8b89a;
+    --accent-glow: rgba(200,184,154,0.12);
+    --green: #5a8c6e;
+    --green-light: #8ec5a0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
 
-  <link rel="stylesheet" href="style.css">
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ---- GRAIN TEXTURE ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, backdrop-filter 0.3s, background 0.3s;
+  }
+  nav.scrolled {
+    border-color: var(--border);
+    backdrop-filter: blur(20px);
+    background: rgba(13,13,13,0.8);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 6rem;
+    position: relative;
+  }
+  .hero-inner {
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+  h1.hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  h1.hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ---- BUTTONS ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0d0d0d;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-hover);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ---- SECTION COMMONS ---- */
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  h2.section-title em { font-style: italic; color: var(--accent); }
+
+  .max-w { max-width: 1100px; margin: 0 auto; }
+
+  /* ---- ABOUT ---- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-item:first-child { border-top: 1px solid var(--border); }
+  .skill-cat {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .skill-tags {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  /* ---- PROJECTS ---- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+  .project-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-glow);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card:hover { background: var(--bg-card); }
+  .project-num {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+  .project-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.3s;
+  }
+  .project-card:hover .project-img {
+    filter: grayscale(0%) contrast(1.1);
+  }
+  .project-img-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-subtle);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  h3.project-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    flex: 1;
+  }
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .stack-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 1px;
+  }
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .project-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .project-links a:hover { color: var(--accent); }
+  .project-links a svg { width: 12px; height: 12px; }
+
+  /* ---- DESIGN WORK ---- */
+  .design-card {
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .design-card-text {
+    padding: 3rem;
+    border-right: 1px solid var(--border);
+  }
+  .design-card-text h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .design-card-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .design-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .design-card-visual {
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 280px;
+  }
+  .design-badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    background: rgba(90,140,110,0.12);
+    border: 1px solid rgba(90,140,110,0.25);
+    padding: 0.35rem 0.8rem;
+    border-radius: 1px;
+  }
+  .lms-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .lms-row {
+    display: flex;
+    gap: 8px;
+  }
+  .lms-box {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+  .lms-box.accent {
+    border-color: rgba(200,184,154,0.25);
+    color: var(--accent);
+  }
+
+  /* ---- EXPERIENCE ---- */
+  .exp-timeline {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+  .exp-meta {
+    text-align: right;
+  }
+  .exp-date {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .exp-company {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .exp-content h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .exp-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ---- CONTACT ---- */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .contact-left p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .contact-links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.5rem;
+    background: var(--bg);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-link:hover {
+    background: var(--bg-subtle);
+  }
+  .contact-link-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .contact-link-value {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .contact-link:hover .contact-link-value { color: var(--accent); }
+  .contact-cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+  .contact-cta h2 em { font-style: italic; color: var(--accent); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  footer p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ---- REVEAL ANIMATIONS ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* Hero animate in */
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(20px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both; }
+  .hero-title    { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+  .hero-sub      { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+  .hero-actions  { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.65s both; }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .design-card { grid-template-columns: 1fr; }
+    .design-card-text { border-right: none; border-bottom: 1px solid var(--border); }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-meta { text-align: left; }
+    .contact-inner { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  .project-links {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  z-index: 20;
+}
+
+.project-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  position: relative;
+  z-index: 30;
+
+  pointer-events: auto;
+}
+
+.project-links svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}.project-links {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  z-index: 20;
+}
+
+.project-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  position: relative;
+  z-index: 30;
+
+  pointer-events: auto;
+}
+
+.project-links svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* RIGHT SIDE IMPROVEMENTS */
+
+.design-card-visual {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.01)
+  );
+
+  border-left: 1px solid rgba(255,255,255,0.06);
+
+  padding: 3rem;
+}
+
+.lms-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* HEADER */
+
+.lms-header {
+  margin-bottom: 1rem;
+}
+
+.mini-line {
+  width: 50px;
+  height: 1px;
+  background: rgba(201, 178, 122, 0.7);
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.lms-label {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #f5f5f5;
+
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.lms-subtext {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.52);
+
+  max-width: 420px;
+}
+
+/* GRID */
+
+.lms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* ROW */
+
+.lms-row {
+  width: 100%;
+}
+
+/* BOX */
+
+.lms-box {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 92px;
+
+  padding: 1.25rem;
+
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.01)
+    );
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.lms-box:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(201,178,122,0.45);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(201,178,122,0.08),
+      rgba(255,255,255,0.02)
+    );
+}
+
+/* ACCENT BOXES */
+
+.lms-box.accent {
+  border-color: rgba(201,178,122,0.22);
+}
+
+.hero-box {
+  min-height: 110px;
+}
+
+.bottom-box {
+  min-height: 100px;
+}
+
+/* TEXT */
+
+.box-title {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  color: #e8dcc2;
+
+  margin-bottom: 0.65rem;
+}
+
+.box-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+
+  color: rgba(255,255,255,0.48);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .design-card-visual {
+    padding: 2rem 1.5rem;
+  }
+
+  .lms-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* CASE STUDY */
+
+.case-study-box {
+  margin-top: 3rem;
+
+  padding-top: 2rem;
+
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.case-study-top {
+  margin-bottom: 1.5rem;
+}
+
+.case-line {
+  width: 45px;
+  height: 1px;
+
+  background: rgba(201,178,122,0.7);
+
+  display: block;
+
+  margin-bottom: 1rem;
+}
+
+.case-study-label {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+
+  color: rgba(255,255,255,0.72);
+}
+
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.case-item {
+  padding: 1.2rem;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.01)
+    );
+
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.case-item:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(201,178,122,0.3);
+}
+
+.case-title {
+  display: inline-block;
+
+  margin-bottom: 0.9rem;
+
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+
+  color: #e8dcc2;
+}
+
+.case-item p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+
+  color: rgba(255,255,255,0.55);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .case-study-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+</style>
 </head>
-
 <body>
-<!-- NAVBAR -->
-<nav class="navbar">
-  <h2 class="logo">Harini</h2>
 
-  <ul>
-    <li><a href="#projects">Work</a></li>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Harini</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    
-    <h1>
-      Hi, I’m <span class="highlight">Harini</span>.<br>
-      Designing Experiences. Building Interfaces.
+  <div class="hero-inner max-w">
+    <span class="hero-eyebrow">UI/UX Designer & Frontend Developer</span>
+    <h1 class="hero-title">
+      Designing<br>
+      <em>experiences</em>,<br>
+      building interfaces.
     </h1>
-
-    <p>
-      UI/UX Designer & Frontend Developer building clean, user-focused
-      digital products with strong visual design and real-world project experience.
+    <p class="hero-sub">
+      I craft user-centered digital products where strong visual design meets clean, scalable code — turning ideas into interfaces people actually enjoy using.
     </p>
-    
-    <div class="hero-buttons">
-      <a href="#projects" class="btn">View My Work</a>
-      <a href="resume.pdf" download class="btn secondary">Download Resume</a>
-    </div>
-
-  </div>
-
-  <div class="hero-image">
-    <div class="image-wrapper">
-      <img src="me.jpg" alt="Harini">
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">View my work</a>
+      <a href="resume.pdf" download class="btn btn-outline">Download résumé</a>
     </div>
   </div>
 </section>
 
-  <!-- ABOUT SECTION -->
-  <section class="about reveal">
-
-  <div class="about-text">
-    <h2>About Me</h2>
-    <p>
-I’m a UI/UX Designer and Frontend Developer with hands-on experience
-through internships and real-world projects. I focus on building intuitive,
-user-centered interfaces backed by clean and scalable code.
-</p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="max-w">
+    <div class="section-label">About</div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <h2 class="section-title">A designer who <em>codes</em>.</h2>
+        <p>I'm Harini — a UI/UX designer and frontend developer based in India. I work at the intersection of design and engineering, building interfaces that are as well-crafted under the hood as they look on screen.</p>
+        <p>My background spans <strong>internship experience</strong> in both design (Library Management System at One Yes Info Tech) and development (Ekhai), giving me a rare dual perspective — I can think in user flows and ship in code.</p>
+        <p>Currently open to <strong>UI/UX design and frontend roles</strong> where craft and clarity matter.</p>
+      </div>
+      <div class="skill-list reveal reveal-delay-1">
+        <div class="skill-item">
+          <span class="skill-cat">Frontend</span>
+          <span class="skill-tags">HTML · CSS · JavaScript</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-cat">Design</span>
+          <span class="skill-tags">Figma · Wireframing · Prototyping</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-cat">Backend basics</span>
+          <span class="skill-tags">Django · SQL · APIs</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-cat">Process</span>
+          <span class="skill-tags">Git · SDLC · Testing</span>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="skills">
-
-    <div class="skill-card">
-      <h3>Frontend</h3>
-      <p>HTML, CSS, JavaScript</p>
-    </div>
-
-    <div class="skill-card">
-      <h3>UI/UX Design</h3>
-      <p>Figma, Wireframing, Prototyping</p>
-    </div>
-
-    <div class="skill-card">
-      <h3>Backend Basics</h3>
-      <p>Django, SQL, APIs</p>
-    </div>
-
-    <div class="skill-card">
-      <h3>Other Skills</h3>
-      <p>Testing, Debugging, SDLC</p>
-    </div>
-
-  </div>
-
 </section>
 
-<!-- PROJECT SECTION -->
-<section id="projects" class="projects reveal">
+<!-- WORK -->
+<section id="work">
+  <div class="max-w">
+    <div class="section-label">Selected work</div>
+    <h2 class="section-title reveal">Projects that <em>ship</em>.</h2>
 
-  <h2>My Work</h2>
+    <div class="projects-grid">
 
-   <!-- SkillSwap
-<div class="project-card reveal">
+      <!-- GreenVibe -->
+      <div class="project-card reveal">
+        <div class="project-num">01 / Frontend</div>
+        <img class="project-img" src="greenvibe.png" alt="GreenVibe Plant Store" loading="lazy">
+        <h3 class="project-title">GreenVibe</h3>
+        <p class="project-desc">A modern plant store frontend focused on clean UI, smooth interactions, and a visually engaging browsing experience. Designed and built end-to-end.</p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <div class="project-links">
+  <a href="https://green-vibe-plant-store.netlify.app/"
+     target="_blank"
+     rel="noopener noreferrer">
 
-  <div class="project-image">
-    <img src="skillswap.png" alt="SkillSwap">
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15,3 21,3 21,9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
 
-    <div class="overlay">
-      <a href="#" target="_blank">Live</a>
-      <a href="https://github.com/Harini-sana/SkillSwap-peer-learning-platform" target="_blank">GitHub</a>
+    <span>Live Site</span>
+  </a>
+
+  <a href="https://github.com/Harini-sana/greenvibe-plant-store"
+     target="_blank"
+     rel="noopener noreferrer">
+
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 020 4.77 5.07 5.07 0 0 019.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 05 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 09 18.13V22"/>
+    </svg>
+
+    <span>GitHub</span>
+  </a>
+</div>
+      </div>
+
+      <!-- DineEase -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-num">02 / Frontend</div>
+        <img class="project-img" src="DineEase.png" alt="DineEase Restaurant Booking" loading="lazy">
+        <h3 class="project-title">DineEase</h3>
+        <p class="project-desc">A responsive restaurant booking interface — menu browsing, table selection, and reservation flow with a smooth, intuitive experience from first click to confirmation.</p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <div class="project-links">
+          <a href="https://clinquant-marzipan-98f306.netlify.app/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live site
+          </a>
+          <a href="https://github.com/Harini-sana/DineEase-Restaurant-Booking-Website" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Ekhai -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-num">03 / Internship</div>
+        <img class="project-img" src="ekhai.png" alt="Ekhai UI Recreation" loading="lazy">
+        <h3 class="project-title">Ekhai</h3>
+        <p class="project-desc">UI recreation project completed during internship — rebuilt responsive components with improved layout consistency and production-grade frontend workflows.</p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <div class="project-links">
+          <a href="https://aquamarine-heliotrope-e99432.netlify.app/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live site
+          </a>
+          <a href="https://github.com/Harini-sana/ekhai-website-ui-recreation" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- SkillSwap -->
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-num">04 / Full Stack</div>
+        <img class="project-img" src="skillswap.png" alt="SkillSwap-peer-learning-platform" loading="lazy">
+        <h3 class="project-title">SkillSwap</h3>
+        <p class="project-desc">A peer learning platform where users exchange skills, connect, and track learning progress. Full-stack — from data model to deployed interface.</p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+          <span class="stack-tag">Django</span>
+          <span class="stack-tag">SQLite</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Harini-sana/SkillSwap-peer-learning-platform" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
+</section>
 
-  <div class="project-text">
-    <h3>SkillSwap</h3>
-    <p>
-      A full-stack peer learning platform that enables users to exchange skills,
-      connect with others, and track learning progress through interactive features.
-    </p>
-    <span>HTML • CSS • JavaScript • Django • SQLite</span>
+<!-- DESIGN WORK -->
+<section id="design">
+  <div class="max-w">
+    <div class="section-label">UI/UX Design</div>
+
+    <div class="design-card reveal">
+
+      <!-- LEFT -->
+<div class="design-card-text">
+
+  <h3>Library Management System</h3>
+
+  <div class="design-meta">
+    <span class="design-badge">
+      Internship — One Yes Info Tech
+    </span>
+  </div>
+
+  <p>
+    A complete UI/UX solution for library operations — dashboards,
+    user flows, and interactive prototypes designed for efficiency
+    and usability. Covered book issue/return workflows and admin controls.
+  </p>
+
+  <div class="project-stack" style="margin-bottom: 1.5rem;">
+    <span class="stack-tag">Figma</span>
+    <span class="stack-tag">Prototyping</span>
+    <span class="stack-tag">User Flows</span>
+    <span class="stack-tag">Wireframing</span>
+  </div>
+
+  <div class="design-actions">
+
+    <a
+      href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-9&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+      target="_blank"
+      rel="noopener"
+      class="btn btn-outline"
+    >
+      View Prototype ↗
+    </a>
+
+  </div>
+
+  <!-- PROJECT OVERVIEW -->
+<div class="case-study-box">
+
+  <div class="case-study-top">
+
+    <span class="case-line"></span>
+
+    <div class="case-study-label">
+      Project Overview
+    </div>
+
+  </div>
+
+  <div class="case-study-grid">
+
+    <!-- WHAT I WORKED ON -->
+    <div class="case-item">
+
+      <span class="case-title">
+        What I Worked On
+      </span>
+
+      <p>
+        Designed multiple UI screens including dashboard layouts,
+        book browsing flows, wishlist interactions, and admin panels
+        using Figma during internship training.
+      </p>
+
+    </div>
+
+    <!-- TOOLS -->
+    <div class="case-item">
+
+      <span class="case-title">
+        Tools & Skills
+      </span>
+
+      <p>
+        Used Figma for wireframing, interface design,
+        prototyping, layout structuring, and interactive
+        workflow exploration.
+      </p>
+
+    </div>
+
+    <!-- DESIGN FOCUS -->
+    <div class="case-item">
+
+      <span class="case-title">
+        Design Focus
+      </span>
+
+      <p>
+        Focused on creating a clean and easy-to-understand
+        user experience with organized navigation,
+        consistent layouts, and simple interaction patterns.
+      </p>
+
+    </div>
+
+    <!-- LEARNING -->
+    <div class="case-item">
+
+      <span class="case-title">
+        What I Learned
+      </span>
+
+      <p>
+        Gained practical exposure to UI/UX workflow structuring,
+        prototype linking, dashboard organization,
+        and designing interfaces for real-world use cases.
+      </p>
+
+    </div>
+
   </div>
 
 </div>
--->
-
-  <!-- GreenVibe -->
-  <div  class="project-card reveal">
-
-    <div class="project-image">
-      <img src="greenvibe.png" alt="GreenVibe">
-
-      <div class="overlay">
-        <a href="https://green-vibe-plant-store.netlify.app/" target="_blank">Live</a>
-        <a href="https://github.com/Harini-sana/greenvibe-plant-store" target="_blank">GitHub</a>
-      </div>
-    </div>
-
-    <div class="project-text">
-      <h3>GreenVibe</h3>
-      <p>
-        A modern plant store frontend focused on clean UI, smooth interactions,
-        and visually engaging user experience.
-      </p>
-      <span>HTML • CSS • JavaScript</span>
-    </div>
-
-  </div>
-
-  <div class="project-card reveal">
-
-  <div class="project-image">
-    <img src="DineEase.png" alt="DineEase Restaurant Booking">
-
-    <div class="overlay">
-      <a href="https://clinquant-marzipan-98f306.netlify.app/" target="_blank">Live</a>
-      <a href="https://github.com/Harini-sana/DineEase-Restaurant-Booking-Website" target="_blank">GitHub</a>
-    </div>
-  </div>
-
-  <div class="project-text">
-    <h3>DineEase – Restaurant Booking System</h3>
-    <p>
-      Designed and developed a responsive restaurant booking interface that allows users 
-      to explore menus, select tables, and make reservations with a smooth and intuitive user experience.
-    </p>
-    <span>HTML • CSS • JavaScript</span>
-  </div>
-
 </div>
 
-  <!-- Ekhai -->
-  <div class="project-card reveal">
+      <!-- RIGHT -->
+      <div class="design-card-visual">
 
-    <div class="project-image">
-      <img src="ekhai.png" alt="Ekhai UI">
+        <div class="lms-diagram">
 
-      <div class="overlay">
-        <a href="https://aquamarine-heliotrope-e99432.netlify.app/" target="_blank">Live</a>
-        <a href="https://github.com/Harini-sana/ekhai-website-ui-recreation" target="_blank">GitHub</a>
+          <!-- TOP HEADER -->
+          <div class="lms-header">
+            <span class="mini-line"></span>
+
+            <div class="lms-label">
+              Interactive Prototype Screens
+            </div>
+
+            <p class="lms-subtext">
+              Explore the user-side and admin-side workflows directly in Figma
+            </p>
+          </div>
+
+          <!-- MAIN DASHBOARD -->
+          <div class="lms-row">
+            <a
+              class="lms-box accent hero-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-3047&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">User Dashboard</span>
+              <span class="box-desc">Core browsing & activity flow</span>
+            </a>
+          </div>
+
+          <!-- GRID -->
+          <div class="lms-grid">
+
+            <a
+              class="lms-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-12369&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">Browse Books</span>
+              <span class="box-desc">Book discovery experience</span>
+            </a>
+
+            <a
+              class="lms-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-4077&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">User Management</span>
+              <span class="box-desc">Admin control & permissions</span>
+            </a>
+
+            <a
+              class="lms-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-2330&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">Wishlist</span>
+              <span class="box-desc">Saved reading workflow</span>
+            </a>
+
+            <a
+              class="lms-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-935&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">Author Reports</span>
+              <span class="box-desc">Analytics & reporting panel</span>
+            </a>
+
+          </div>
+
+          <!-- BOTTOM CTA -->
+          <div class="lms-row">
+            <a
+              class="lms-box accent bottom-box"
+              href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-3377&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="box-title">Admin Catalogue ↗</span>
+              <span class="box-desc">Inventory & management system</span>
+            </a>
+          </div>
+
+        </div>
+
       </div>
     </div>
-
-    <div class="project-text">
-      <h3>Ekhai – UI Recreation (Internship)</h3>
-      <p>
-        Recreated responsive UI components during internship, 
-        improving layout consistency and implementing real-world frontend workflows.
-      </p>
-      <span>Internship Project • HTML • CSS • JS</span>
-    </div>
-
   </div>
-
-</section>
-
-<section class="design reveal">
-
-  <h2>UI/UX Design</h2>
-  <br>
-
-  <div class="design-card">
-
-    <div class="design-text">
-      <h3>Library Management System – UI/UX Design (Internship)</h3>
-<p>
-  Designed and prototyped a complete Library Management System during internship,
-  focusing on user-centered design and efficient workflow management. Created
-  wireframes, dashboards, and interactive prototypes to streamline book issue,
-  return, and admin operations while ensuring consistency and usability.
-</p>
-
-<span>Figma • Prototyping • User Flows</span>
-<br>
-<br>
-      <a href="https://www.figma.com/proto/arL2L4ZhLupdfKXQmFrXD6/Untitled?page-id=0%3A1&node-id=1-9&viewport=-1499%2C-1284%2C0.07&t=MxRW93dtQ0y8aoCU-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A11830" target="_blank" class="btn">
-        View Prototype
-      </a>
-    </div>
-
-  </div>
-
 </section>
 
 <!-- EXPERIENCE -->
+<section id="experience">
+  <div class="max-w">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title reveal">Where I've <em>worked</em>.</h2>
+    <div class="exp-timeline">
 
-<section class="experience reveal" id="experience">
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <span class="exp-date">Dec 2025 – Jan 2026</span>
+          <span class="exp-company">Ekhai</span>
+        </div>
+        <div class="exp-content">
+          <h3>Frontend Developer Intern</h3>
+          <p>Developed and improved responsive UI components, resolved layout inconsistencies, and worked in real-world frontend workflows with version control and team collaboration.</p>
+        </div>
+      </div>
 
-  <h2>Experience</h2>
+      <div class="exp-item reveal reveal-delay-1">
+        <div class="exp-meta">
+          <span class="exp-date">Apr 2025 – May 2025</span>
+          <span class="exp-company">One Yes Info Tech</span>
+        </div>
+        <div class="exp-content">
+          <h3>UI/UX Design Intern</h3>
+          <p>Designed a complete Library Management System — from wireframes and user flow diagrams to dashboards and interactive Figma prototypes — with a focus on usability and operational efficiency.</p>
+        </div>
+      </div>
 
-  <div class="timeline">
-
-    <div class="timeline-item">
-      <h3>Frontend Developer Intern – Ekhai</h3>
-      <span>Dec 2025 – Jan 2026</span>
-      <p>
-        Developed and improved responsive UI components, fixed layout issues,
-        and worked on real-world frontend workflows with version control.
-      </p>
     </div>
-
-    <div class="timeline-item">
-      <h3>UI/UX Design Intern – One Yes Info Tech</h3>
-      <span>Apr 2025 – May 2025</span>
-      <p>
-        Designed a Library Management System including wireframes, dashboards,
-        and interactive prototypes focusing on usability and user flow.
-      </p>
-    </div>
-
   </div>
-
 </section>
 
-<!-- CONTACT DETAILS -->
-
-<section class="contact reveal" id="contact">
-
-  <h2>Let’s Work Together</h2>
-
-  <p>
-    I’m open to opportunities in UI/UX design and frontend development.
-    If you have a project or role in mind, feel free to reach out.
-  </p>
-
-  <div class="contact-links">
-    <a href="mailto:hariniravi1508@gmail.com" class="btn secondary">Email Me</a>
-    <a href="https://www.linkedin.com/in/harini-r2003" target="_blank" class="btn secondary">LinkedIn</a>
-    <a href="https://github.com/Harini-sana" target="_blank" class="btn secondary">GitHub</a>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="max-w">
+    <div class="section-label">Contact</div>
+    <div class="contact-inner">
+      <div class="contact-cta reveal">
+        <h2>Let's build something <em>good</em>.</h2>
+        <p class="hero-sub" style="margin-bottom: 0;">Open to UI/UX design and frontend development roles. If you have a project or position in mind, I'd love to hear about it.</p>
+      </div>
+      <div class="contact-links-grid reveal reveal-delay-1">
+        <a href="mailto:hariniravi1508@gmail.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">hariniravi1508@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/harini-r2003" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">harini-r2003 ↗</span>
+        </a>
+        <a href="https://github.com/Harini-sana" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-value">Harini-sana ↗</span>
+        </a>
+        <a href="resume.pdf" download class="contact-link">
+          <span class="contact-link-label">Résumé</span>
+          <span class="contact-link-value">Download PDF ↓</span>
+        </a>
+      </div>
+    </div>
   </div>
-
 </section>
 
-  <script src="script.js"></script>
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Harini. Designed & built with care.</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+</footer>
 
+<script>
+  // Nav scroll class
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
