@@ -54,7 +54,7 @@ Featured projects include:
 ## 🔗 Live Preview
 
 Portfolio Website:
-[View Portfolio](https://your-portfolio-link.com)
+[View Portfolio](https://harinir-ravi-portfolio.netlify.app/)
 
 ## 📌 GitHub Repository
 
@@ -64,7 +64,7 @@ git clone https://github.com/Harini-sana/harini-portfolio.git
 
 ## 📫 Contact
 
-* LinkedIn: [https://linkedin.com/in/your-link](https://linkedin.com/in/your-link)
+* LinkedIn: [https://linkedin.com/in/your-link](https://www.linkedin.com/in/harini-r2003/)
 * GitHub: [https://github.com/Harini-sana](https://github.com/Harini-sana)
 
 ## 🌟 Future Improvements
